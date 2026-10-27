@@ -145,55 +145,6 @@
         </div>
       </div>
     </section>
-
-    <section>
-      <h2>Results</h2>
-      <div class="stats">
-        <div class="stat"><b>±3 cm</b><span>height variation of the corrected robot trajectory (old: ≈12 m)</span></div>
-        <div class="stat"><b>1.07 cm</b><span>median depth-to-LiDAR residual after camera calibration</span></div>
-        <div class="stat"><b>2,571 / 3,127</b><span>camera frames registered to the LiDAR map by ICP</span></div>
-        <div class="stat"><b>1.33 M</b><span>triangles in the textured mesh (14 tiles)</span></div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Before and after</h2>
-      <figure>
-        <img src="media/before_after.jpg" alt="Left: previous reconstruction from RGB-D odometry only, distorted and drifting. Right: new reconstruction viewed from above.">
-        <figcaption>Left: the previous camera-only reconstruction (drift, curved corridors, ≈12 m of vertical spread). Right: the new
-          LiDAR-based, loop-closed reconstruction, rendered from above in Unity.</figcaption>
-      </figure>
-    </section>
-
-    <section>
-      <h2>Rendered vs. real</h2>
-      <figure>
-        <img src="media/unity_vs_photos.jpg" alt="Pairs of original robot camera photos and Unity renders from the same camera poses.">
-        <figcaption>Original robot camera photos (left of each pair) next to Unity renders from the same reconstructed camera pose.</figcaption>
-      </figure>
-    </section>
-
-    <section>
-      <h2>How it was built</h2>
-      <div class="pipeline">
-        <span>LiDAR + IMU sweeps</span><i>→</i><span>gyro-aided odometry + flat-floor prior</span><i>→</i>
-        <span>loop closure (pose graph)</span><i>→</i><span>camera time sync + extrinsic calibration</span><i>→</i>
-        <span>TSDF fusion (depth + LiDAR), people removed</span><i>→</i><span>photo texture baking</span><i>→</i><span>Unity WebGL</span>
-      </div>
-      <div class="grid g3" style="margin-top:16px">
-        <div class="card"><h3>Geometry from LiDAR</h3><p>The upside-down-mounted LiDAR's partial scans are combined into sweeps, de-skewed with
-          the gyro and levelled using the floor. A pose graph closes the loop between the start and end of the walk.</p></div>
-        <div class="card"><h3>Camera aligned to the map</h3><p>Clocks are synchronised by gyro correlation; the camera-to-robot transform is
-          estimated from data, and each frame is refined by ICP against the LiDAR map.</p></div>
-        <div class="card"><h3>Textures from photos</h3><p>For every surface, the sharpest, most head-on views are blended with exposure
-          compensation and an occlusion test, then baked into texture atlases.</p></div>
-      </div>
-    </section>
-
-    <footer>
-      Data: Unitree Go2 with L1 LiDAR and Intel RealSense D435i. Built with Open3D, KISS-ICP and Unity.
-      Best viewed in a recent desktop Chrome, Edge, Firefox or Safari.
-    </footer>
   </div>
 
   <script>
